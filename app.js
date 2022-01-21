@@ -87,3 +87,18 @@ app.put("/users/:id", (req, res) => {
       });
     });
 });
+app.get("/users/:id", (req, res) => {
+  const id = req.params.id;
+  const userBody = req.body;
+
+  UserModel.findById(id).then((value) => {
+      res.json({
+        message: value,
+      });
+    })
+    .catch((error) => {
+      res.json({
+        message: error.message,
+      });
+    });
+});
