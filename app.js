@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
+const { createUserController, deleteUserController, getUserByIdController, updateUserController, getUsersController } = require("./controllers/usersController");
 const { UserModel } = require("./models/userModel");
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,84 +22,8 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/users", (req, res) => {
-  UserModel.find()
-    .then((value) => {
-      res.json({
-        message: value,
-      });
-    })
-    .catch((error) => {
-      res.json({
-        message: error.message,
-      });
-    });
-});
-
-app.delete("/users/:id", (req, res) => {
-  const id = req.params.id;
-
-  UserModel.deleteOne({ _id: id })
-    .then((value) => {
-      if (value.deletedCount === 0) {
-        res.json({
-          message: "User not founded",
-        });
-      } else {
-        res.json({
-          message: "User deleted",
-        });
-      }
-    })
-    .catch((error) => {
-      res.json({
-        message: error.message,
-      });
-    });
-});
-app.post("/users", (req, res) => {
-  const user = req.body;
-
-  UserModel.create(user)
-    .then((value) => {
-      res.json({
-        message: "User registered",
-      });
-    })
-    .catch((error) => {
-      res.json({
-        message: error.message,
-      });
-    });
-});
-app.put("/users/:id", (req, res) => {
-  const userId = req.params.id;
-  const userBody = req.body;
-
-  UserModel.findByIdAndUpdate(userId, { $set: userBody })
-    .then((value) => {
-      res.json({
-        message: "User Updated",
-      });
-    })
-    .catch((error) => {
-      res.json({
-        message: error.message,
-      });
-    });
-});
-app.get("/users/:id", (req, res) => {
-  const id = req.params.id;
-  const userBody = req.body;
-
-  UserModel.findById(id).then((value) => {
-      res.json({
-        message: value,
-      });
-    })
-    .catch((error) => {
-      res.json({
-        message: error.message,
-      });
-    });
-});
+app.get("/users", getUsersController);
+app.delete("/users/:id", deleteUserController);
+app.post("/users", createUserController);
+app.put("/users/:id", updateUserController);
+app.get("/users/:id", getUserByIdController);
