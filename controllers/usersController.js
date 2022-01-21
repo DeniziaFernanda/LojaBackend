@@ -1,3 +1,5 @@
+const { UserModel } = require("../models/userModel");
+
 const createUserController = (req, res) => {
   const user = req.body;
 
@@ -83,4 +85,10 @@ const getUserByIdController = (req, res) => {
       });
     });
 };
-module.exports = { createUserController, deleteUserController, getUserByIdController, updateUserController, getUsersController };
+module.exports = {
+  createUserController,
+  deleteUserController,
+  getUserByIdController,
+  updateUserController,
+  getUsersController,
+};
