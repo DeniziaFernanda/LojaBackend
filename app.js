@@ -71,3 +71,19 @@ app.post("/users", (req, res) => {
       });
     });
 });
+app.put("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  const userBody = req.body;
+
+  UserModel.findByIdAndUpdate(userId, { $set: userBody })
+    .then((value) => {
+      res.json({
+        message: "User Updated",
+      });
+    })
+    .catch((error) => {
+      res.json({
+        message: error.message,
+      });
+    });
+});
