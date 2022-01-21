@@ -35,17 +35,15 @@ app.get("/users", (req, res) => {
     });
 });
 
-app.delete("/users", (req, res) => {
-  const user = req.body;
-  const id = user._id;
+app.delete("/users/:id", (req, res) => {
+  const id = req.params.id;
 
-  console.log("--------------------------------------", id);
   UserModel.deleteOne({ _id: id })
     .then((value) => {
       if (value.deletedCount === 0) {
         res.json({
           message: "User not founded",
-        }); 
+        });
       } else {
         res.json({
           message: "User deleted",
