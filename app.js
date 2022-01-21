@@ -1,12 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan")
-const { UserModel } = require("./userModel");
+const { UserModel } = require("./models/userModel");
 const app = express();
 const port = process.env.PORT || 3000;
 
 
-app.use(express.json())
+app.use(express.json()) // Vamos utilizar um middleware : Permite que a app uliize json como forma de comunicação.
 app.use(morgan())
 
 
@@ -22,6 +22,7 @@ mongoose.connect(
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
 app.get("/users", (req, res) => {
   UserModel.find().then((value)=>{
       res.json({
@@ -33,6 +34,7 @@ app.get("/users", (req, res) => {
     })
   })
 });
+
 app.post("/users", (req, res) => {
   const user = req.body
 
