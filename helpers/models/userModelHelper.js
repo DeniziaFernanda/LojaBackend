@@ -10,7 +10,7 @@ const createUserHelper = async (userBody) => {
 
 const deleteUserHelper = async (id) => {
   try {
-    await UserModel.deleteOne({ _id: id });
+   return await UserModel.deleteOne({ _id: id });
   } catch (error) {
     throw new Error(error);
   }
@@ -18,7 +18,7 @@ const deleteUserHelper = async (id) => {
 
 const getUsersHelper = async () => {
   try {
-    await UserModel.find();
+    return await UserModel.find();
   } catch (error) {
     throw new Error(error);
   }
@@ -33,7 +33,7 @@ const updateUserHelper = async (userId, userBody) => {
 
 const getUserByIdHelper = async (userId) => {
   try {
-    await UserModel.findById(userId);
+    return await UserModel.findById(userId);
   } catch (error) {
     throw new Error(error);
   }

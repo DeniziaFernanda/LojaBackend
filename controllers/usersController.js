@@ -24,7 +24,7 @@ const deleteUserController = async (req, res) => {
   const id = req.params.id;
 
   try {
-    await deleteUserHelper(id);
+    const value = await deleteUserHelper(id);
     if (value.deletedCount === 0) {
       res.json({
         message: "User not founded",
@@ -43,7 +43,7 @@ const deleteUserController = async (req, res) => {
 
 const getUsersController = async (req, res) => {
   try {
-    await getUsersHelper();
+    const value = await getUsersHelper();
     res.json({
       message: value,
     });
@@ -74,7 +74,7 @@ const getUserByIdController = async (req, res) => {
   const id = req.params.id;
 
   try {
-    await getUserByIdHelper(id);
+    const value = await getUserByIdHelper(id);
     res.json({
       message: value,
     });
